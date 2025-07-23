@@ -1,19 +1,17 @@
 package high.skill.girl.project.calories_counter.model;
 
-public class Portion {
+public class NutritionalValue { // 100g value
 
     private double ccal;
     private double protein;
     private double lipid;
     private double carbohydrates;
-    private double weight;
 
-    public Portion(double weight) {
-        this.ccal = 0;
-        this.protein = 0;
-        this.lipid = 0;
-        this.carbohydrates = 0;
-        this.weight = weight;
+    public NutritionalValue(double ccal, double protein, double lipid, double carbohydrates) {
+        this.ccal = ccal;
+        this.protein = protein;
+        this.lipid = lipid;
+        this.carbohydrates = carbohydrates;
     }
 
     public double getCcal() {
@@ -46,13 +44,5 @@ public class Portion {
 
     public void setCarbohydrates(double carbohydrates) {
         this.carbohydrates = carbohydrates;
-    }
-
-    public double getWeight() {
-        return weight;
-    }
-
-    public void setWeight(double weight) {
-        this.weight = weight;
     }
 }
