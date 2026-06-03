@@ -1,1 +1,4 @@
 /home/vera/IdeaProjects/Java/CaloriesCounter/src/main/java/high/skill/girl/project/calories_counter/MainApplication.java
+/home/vera/IdeaProjects/Java/CaloriesCounter/src/main/java/high/skill/girl/project/calories_counter/controller/CounterApi.java
+/home/vera/IdeaProjects/Java/CaloriesCounter/src/main/java/high/skill/girl/project/calories_counter/entity/ProductEntity.java
+/home/vera/IdeaProjects/Java/CaloriesCounter/src/main/java/high/skill/girl/project/calories_counter/repository/ProductsRepository.java

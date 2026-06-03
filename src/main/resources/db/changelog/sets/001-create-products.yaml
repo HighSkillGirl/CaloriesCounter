@@ -1,0 +1,35 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1-create-products
+      author: highskllgirl
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            - tableExists:
+                tableName: products
+      changes:
+        - createTable:
+            tableName: products
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: proteins
+                  type: decimal(10,2)
+              - column:
+                  name: fats
+                  type: decimal(10,2)
+              - column:
+                  name: carbohydrates
+                  type: decimal(10,2)
+              - column:
+                  name: calories
+                  type: decimal(10,2)
+              - column:
+                  name: name
+                  type: varchar(255)
