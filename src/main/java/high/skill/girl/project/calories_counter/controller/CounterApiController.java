@@ -2,6 +2,7 @@ package high.skill.girl.project.calories_counter.controller;
 
 import high.skill.girl.project.calories_counter.dto.ProductDto;
 import high.skill.girl.project.calories_counter.service.CounterService;
+import io.micronaut.context.annotation.Parameter;
 import io.micronaut.http.annotation.Body;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
@@ -16,17 +17,22 @@ public class CounterApiController {
     @Inject
     private CounterService service;
 
+    @Get("/get")
+    public ProductDto getProductByName(@Parameter String name) {
+        return service.getProductByName(name);
+    }
+
     @Get("/getAll")
     public List<ProductDto> getAllProducts() {
         return service.getAllProducts();
     }
 
-    @Post("/addNew")
+    @Post("/add")
     public void addNewProduct(@Body ProductDto dto) {
         service.addNewProduct(dto);
     }
 
-    @Post("/addNewList")
+    @Post("/addList")
     public void addNewProductList(@Body List<ProductDto> dtoList) {
         service.addNewProductList(dtoList);
     }
