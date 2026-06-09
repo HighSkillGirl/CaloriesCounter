@@ -13,6 +13,13 @@ public class CountingResponseDto {
     private BigDecimal fats;
     private BigDecimal carbohydrates;
 
+    public CountingResponseDto() {
+        this.calories = new BigDecimal(0);
+        this.proteins = new BigDecimal(0);
+        this.fats = new BigDecimal(0);
+        this.carbohydrates = new BigDecimal(0);
+    }
+
     public void addCalories(double calories) {
         this.calories = this.calories.add(new BigDecimal(calories).setScale(0, RoundingMode.HALF_UP));
     }
