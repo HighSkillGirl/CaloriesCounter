@@ -1,0 +1,20 @@
+databaseChangeLog:
+  - changeSet:
+      id: 3-change-bigdecimal-precision
+      author: highskllgirl
+      changes:
+        - modifyDataType:
+            columnName: proteins
+            newDataType: decimal(10,1)
+            schemaName: public
+            tableName: products
+        - modifyDataType:
+            columnName: fats
+            newDataType: decimal(10,1)
+            schemaName: public
+            tableName: products
+        - modifyDataType:
+            columnName: carbohydrates
+            newDataType: decimal(10,1)
+            schemaName: public
+            tableName: products

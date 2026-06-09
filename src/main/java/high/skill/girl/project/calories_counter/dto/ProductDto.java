@@ -7,4 +7,4 @@ public record ProductDto(String name,
                          float proteins,
                          float fats,
                          float carbohydrates,
-                         float calories) { }
+                         int calories) { }

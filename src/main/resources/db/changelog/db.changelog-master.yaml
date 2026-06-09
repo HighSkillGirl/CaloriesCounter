@@ -1,3 +1,7 @@
 databaseChangeLog:
   - include:
       file: db/changelog/sets/001-create-products.yaml
+  - include:
+      file: db/changelog/sets/002-change-calories-datatype.yaml
+  - include:
+      file: db/changelog/sets/003-change-bigdecimal-precision.yaml

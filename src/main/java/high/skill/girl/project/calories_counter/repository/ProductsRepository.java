@@ -7,12 +7,12 @@ import io.micronaut.data.model.Pageable;
 import io.micronaut.data.model.query.builder.sql.Dialect;
 import io.micronaut.data.repository.CrudRepository;
 
-import java.util.Optional;
+import java.util.List;
 
 @JdbcRepository(dialect = Dialect.H2)
 public interface ProductsRepository extends CrudRepository<ProductEntity, Integer> {
 
-    Optional<ProductEntity> findByNameContains(String name);
+    List<ProductEntity> findByNameContains(String name);
 
     Page<ProductEntity> findAll(Pageable page);
 }

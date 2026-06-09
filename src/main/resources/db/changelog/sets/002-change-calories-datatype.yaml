@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2-change-calories-datatype
+      author: highskllgirl
+      changes:
+        - modifyDataType:
+            columnName: calories
+            newDataType: int
+            schemaName: public
+            tableName: products

@@ -1,7 +1,6 @@
 package high.skill.girl.project.calories_counter.controller;
 
-import high.skill.girl.project.calories_counter.dto.PageOfProductsDto;
-import high.skill.girl.project.calories_counter.dto.ProductDto;
+import high.skill.girl.project.calories_counter.dto.*;
 import high.skill.girl.project.calories_counter.service.CounterService;
 import io.micronaut.context.annotation.Parameter;
 import io.micronaut.http.annotation.*;
@@ -16,7 +15,7 @@ public class CounterApiController {
     private CounterService service;
 
     @Get("/get")
-    public ProductDto getProductByName(@Parameter String name) {
+    public List<ProductDto> getProductByName(@Parameter String name) {
         return service.getProductByName(name);
     }
 
@@ -26,7 +25,7 @@ public class CounterApiController {
     }
 
     @Get("/getAllWithPagination")
-    public PageOfProductsDto getAllProductsWithPagination(@QueryValue(defaultValue = "10") int limit,
+    public ProductDtoPage getAllProductsWithPagination(@QueryValue(defaultValue = "10") int limit,
                                                           @QueryValue(defaultValue = "0") int offset) {
         return service.getAllProductsWithPagination(limit, offset);
     }
@@ -39,5 +38,10 @@ public class CounterApiController {
     @Post("/addList")
     public void addNewProductList(@Body List<ProductDto> dtoList) {
         service.addNewProductList(dtoList);
+    }
+
+    @Post("/count")
+    public CountingResponseDto count(@Body List<CountingRequestDto> requestInfoList) {
+        return service.count(requestInfoList);
     }
 }
