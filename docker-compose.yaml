@@ -1,7 +1,10 @@
 services:
   app:
     build: .
+    image: calories_counter_i
+    container_name: calories_counter_c
     ports:
       - "8080:8080"
     env_file:
       - .env
+    restart: unless-stopped
