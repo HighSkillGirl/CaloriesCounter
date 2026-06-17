@@ -6,6 +6,7 @@ target/
 
 .git
 .idea
+.env
 
 ### Eclipse ###
 .apt_generated

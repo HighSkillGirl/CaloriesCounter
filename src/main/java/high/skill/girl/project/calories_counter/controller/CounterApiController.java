@@ -44,4 +44,10 @@ public class CounterApiController {
     public CountingResponseDto count(@Body List<CountingRequestDto> requestInfoList) {
         return service.count(requestInfoList);
     }
+
+    @Get("/test")
+    public String test() {
+        System.out.println("good!");
+        return "Good";
+    }
 }
