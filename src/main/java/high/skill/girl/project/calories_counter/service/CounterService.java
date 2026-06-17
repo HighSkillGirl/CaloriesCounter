@@ -36,7 +36,7 @@ public class CounterService {
     }
 
     public List<ProductDto> getProductByName(String name) {
-        var entities = repository.findByNameContains(name);
+        var entities = repository.findByNameContainsIgnoreCase(name);
         return mapAndCollectEntityList(entities);
     }
 
@@ -54,7 +54,7 @@ public class CounterService {
     public CountingResponseDto count(List<CountingRequestDto> requestInfoList) {
         var response = new CountingResponseDto();
         for (var request : requestInfoList) {
-            ProductEntity entity = repository.findByNameContains(request.productName()).getFirst();
+            ProductEntity entity = repository.findByNameContainsIgnoreCase(request.productName()).getFirst();
 
             double weight = (double) request.productWeight() / 100;
             double calories = entity.calories().doubleValue() * weight;

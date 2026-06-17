@@ -12,7 +12,7 @@ import java.util.List;
 @JdbcRepository(dialect = Dialect.H2)
 public interface ProductsRepository extends CrudRepository<ProductEntity, Integer> {
 
-    List<ProductEntity> findByNameContains(String name);
+    List<ProductEntity> findByNameContainsIgnoreCase(String name);
 
     Page<ProductEntity> findAll(Pageable page);
 }
