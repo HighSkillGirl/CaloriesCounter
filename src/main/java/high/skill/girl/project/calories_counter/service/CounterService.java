@@ -5,6 +5,7 @@ import high.skill.girl.project.calories_counter.dto.CountingResponseDto;
 import high.skill.girl.project.calories_counter.dto.ProductDto;
 import high.skill.girl.project.calories_counter.dto.ProductDtoPage;
 import high.skill.girl.project.calories_counter.entity.ProductEntity;
+import high.skill.girl.project.calories_counter.exception.ProductNotFoundException;
 import high.skill.girl.project.calories_counter.mapper.ProductsMapper;
 import high.skill.girl.project.calories_counter.repository.ProductsRepository;
 import io.micronaut.data.model.Page;
@@ -31,12 +32,8 @@ public class CounterService {
         return new ProductDtoPage(limit, offset, mapAndCollectEntityList(page.getContent()));
     }
 
-    private List<ProductDto> mapAndCollectEntityList(List<ProductEntity> entities) {
-        return entities.stream().map(e -> mapper.toProductDto(e)).toList();
-    }
-
     public List<ProductDto> getProductByName(String name) {
-        var entities = repository.findByNameContainsIgnoreCase(name);
+        var entities = getProductListEntityFromRepo(name);
         return mapAndCollectEntityList(entities);
     }
 
@@ -54,7 +51,13 @@ public class CounterService {
     public CountingResponseDto count(List<CountingRequestDto> requestInfoList) {
         var response = new CountingResponseDto();
         for (var request : requestInfoList) {
-            ProductEntity entity = repository.findByNameContainsIgnoreCase(request.productName()).getFirst();
+
+            var entities = getProductListEntityFromRepo(request.productName());
+            if (entities.isEmpty())
+                throw new ProductNotFoundException(request.productName());
+
+            ProductEntity entity = entities.getFirst();
+
 
             double weight = (double) request.productWeight() / 100;
             double calories = entity.calories().doubleValue() * weight;
@@ -71,4 +74,11 @@ public class CounterService {
         return response;
     }
 
+    private List<ProductEntity> getProductListEntityFromRepo(String name) {
+        return repository.findByNameContainsIgnoreCase(name);
+    }
+
+    private List<ProductDto> mapAndCollectEntityList(List<ProductEntity> entities) {
+        return entities.stream().map(e -> mapper.toProductDto(e)).toList();
+    }
 }
