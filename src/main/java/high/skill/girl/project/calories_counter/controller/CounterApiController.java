@@ -1,9 +1,11 @@
 package high.skill.girl.project.calories_counter.controller;
 
-import high.skill.girl.project.calories_counter.dto.*;
+import high.skill.girl.project.calories_counter.dto.CountingRequestDto;
+import high.skill.girl.project.calories_counter.dto.CountingResponseDto;
 import high.skill.girl.project.calories_counter.service.CounterService;
-import io.micronaut.context.annotation.Parameter;
-import io.micronaut.http.annotation.*;
+import io.micronaut.http.annotation.Body;
+import io.micronaut.http.annotation.Controller;
+import io.micronaut.http.annotation.Post;
 import jakarta.inject.Inject;
 
 import java.util.List;
@@ -14,40 +16,8 @@ public class CounterApiController {
     @Inject
     private CounterService service;
 
-    @Get("/get")
-    public List<ProductDto> getProductByName(@Parameter String name) {
-        return service.getProductByName(name);
-    }
-
-    @Get("/getAll")
-    public List<ProductDto> getAllProducts() {
-        return service.getAllProducts();
-    }
-
-    @Get("/getAllWithPagination")
-    public ProductDtoPage getAllProductsWithPagination(@QueryValue(defaultValue = "10") int limit,
-                                                          @QueryValue(defaultValue = "0") int offset) {
-        return service.getAllProductsWithPagination(limit, offset);
-    }
-
-    @Post("/add")
-    public void addNewProduct(@Body ProductDto dto) {
-        service.addNewProduct(dto);
-    }
-
-    @Post("/addList")
-    public void addNewProductList(@Body List<ProductDto> dtoList) {
-        service.addNewProductList(dtoList);
-    }
-
     @Post("/count")
     public CountingResponseDto count(@Body List<CountingRequestDto> requestInfoList) {
         return service.count(requestInfoList);
-    }
-
-    @Get("/test")
-    public String test() {
-        System.out.println("good!");
-        return "Good";
     }
 }

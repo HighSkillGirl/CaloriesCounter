@@ -4,5 +4,5 @@ import io.micronaut.serde.annotation.Serdeable;
 
 @Serdeable
 public record CountingRequestDto(String productName,
-                                 int productWeight) {
+                                    int productWeight) {
 }

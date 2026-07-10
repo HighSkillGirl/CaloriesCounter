@@ -4,7 +4,7 @@ import io.micronaut.serde.annotation.Serdeable;
 
 @Serdeable
 public record ProductDto(String name,
+                         int calories,
                          float proteins,
                          float fats,
-                         float carbohydrates,
-                         int calories) { }
+                         float carbohydrates) { }
