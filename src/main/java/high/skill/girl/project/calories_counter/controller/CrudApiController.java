@@ -3,6 +3,7 @@ package high.skill.girl.project.calories_counter.controller;
 import high.skill.girl.project.calories_counter.dto.ProductDto;
 import high.skill.girl.project.calories_counter.dto.ProductDtoPage;
 import high.skill.girl.project.calories_counter.service.CrudService;
+import high.skill.girl.project.calories_counter.service.SearchService;
 import io.micronaut.http.annotation.*;
 import jakarta.inject.Inject;
 
@@ -13,6 +14,8 @@ public class CrudApiController {
 
     @Inject
     private CrudService service;
+    @Inject
+    private SearchService searchService;
 
     @Post("/add")
     public void addNewProduct(@Body ProductDto dto) {
@@ -25,8 +28,13 @@ public class CrudApiController {
     }
 
     @Get("/get")
-    public List<ProductDto> getProductByName(@QueryValue String name) {
-        return service.getProductByName(name);
+    public ProductDto getProductByName(@QueryValue String name) {
+        return searchService.getProductByName(name);
+    }
+
+    @Get("/getList")
+    public List<ProductDto> getListOfProductsByName(@QueryValue String name) {
+        return service.getListOfProductsByName(name);
     }
 
     @Get("/getAll")

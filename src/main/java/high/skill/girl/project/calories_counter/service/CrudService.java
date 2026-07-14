@@ -35,14 +35,14 @@ public class CrudService {
         return mapAndCollectEntityList(repository.findAll());
     }
 
+    public List<ProductDto> getListOfProductsByName(String name) {
+        var entities = getProductListEntityFromRepo(name);
+        return mapAndCollectEntityList(entities);
+    }
+
     public ProductDtoPage getAllProductsWithPagination(int limit, int offset) {
         Page<ProductEntity> page = repository.findAll(Pageable.from(offset, limit));
         return new ProductDtoPage(limit, offset, mapAndCollectEntityList(page.getContent()));
-    }
-
-    public List<ProductDto> getProductByName(String name) {
-        var entities = getProductListEntityFromRepo(name);
-        return mapAndCollectEntityList(entities);
     }
 
     public ProductDto updateProductByName(String name, ProductDto forUpdate) {
