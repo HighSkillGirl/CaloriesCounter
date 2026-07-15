@@ -4,6 +4,6 @@ import high.skill.girl.project.calories_counter.entity.ProductEntity;
 
 public interface SearchRepository {
 
-    ProductEntity searchByNameWords(String[] nameWords);
+    ProductEntity searchByNameWords(String name);
 
 }

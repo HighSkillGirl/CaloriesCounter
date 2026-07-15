@@ -2,8 +2,7 @@ package high.skill.girl.project.calories_counter.service;
 
 import high.skill.girl.project.calories_counter.dto.CountingRequestDto;
 import high.skill.girl.project.calories_counter.dto.CountingResponseDto;
-import high.skill.girl.project.calories_counter.entity.ProductEntity;
-import high.skill.girl.project.calories_counter.exception.ProductNotFoundException;
+import high.skill.girl.project.calories_counter.repository.SearchRepository;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 
@@ -13,18 +12,13 @@ import java.util.List;
 public class CounterService {
 
     @Inject
-    private CrudService crudService;
+    private SearchRepository searchRepository;
 
     public CountingResponseDto count(List<CountingRequestDto> requestInfoList) {
         var response = new CountingResponseDto();
+
         for (var request : requestInfoList) {
-
-            var entities = crudService.getProductListEntityFromRepo(request.productName());
-            if (entities.isEmpty())
-                throw new ProductNotFoundException(request.productName());
-
-            ProductEntity entity = entities.getFirst();
-
+            var entity = searchRepository.searchByNameWords(request.productName());
 
             double weight = (double) request.productWeight() / 100;
             double calories = entity.calories().doubleValue() * weight;

@@ -15,7 +15,7 @@ public class SearchService {
     private ProductsMapper mapper;
 
     public ProductDto getProductByName(String name) {
-        var entity = repository.searchByNameWords(name.split(" "));
+        var entity = repository.searchByNameWords(name);
         return mapper.toProductDto(entity);
     }
 }

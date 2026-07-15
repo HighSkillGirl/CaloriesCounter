@@ -1,6 +1,7 @@
 package high.skill.girl.project.calories_counter.repository.impl;
 
 import high.skill.girl.project.calories_counter.entity.ProductEntity;
+import high.skill.girl.project.calories_counter.exception.ProductNotFoundException;
 import high.skill.girl.project.calories_counter.repository.SearchRepository;
 import io.micronaut.data.connection.annotation.Connectable;
 import jakarta.inject.Inject;
@@ -10,6 +11,7 @@ import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Singleton
 public class SearchRepositoryImpl implements SearchRepository {
@@ -19,7 +21,9 @@ public class SearchRepositoryImpl implements SearchRepository {
 
     @Override
     @Connectable
-    public ProductEntity searchByNameWords(String[] nameWords) {
+    public ProductEntity searchByNameWords(String name) {
+        String[] nameWords = name.split(" ");
+
         StringBuilder sql = new StringBuilder();
         sql.append("""
                   SELECT *
@@ -57,6 +61,8 @@ public class SearchRepositoryImpl implements SearchRepository {
                     }
                     return resultList.getFirst();
 
+                } catch (NoSuchElementException e) {
+                    throw new ProductNotFoundException(name);
                 }
             }
         } catch (SQLException e) {
