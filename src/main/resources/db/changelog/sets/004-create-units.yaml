@@ -1,0 +1,34 @@
+databaseChangeLog:
+  - changeSet:
+      id: 4-create-units
+      author: highskllgirl
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            - tableExists:
+                tableName: units
+      changes:
+        - createTable:
+            tableName: units
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: product_id
+                  type: int
+                  constraints:
+                    foreignKeyName: fk_product_unit
+                    referencedTableName: products
+                    referencedColumnNames: id
+                    nullable: false
+              - column:
+                  name: unit
+                  type: int
+              - column:
+                  name: unit_weight
+                  type: decimal(10,2)
