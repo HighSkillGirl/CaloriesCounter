@@ -6,6 +6,7 @@ import high.skill.girl.project.calories_counter.repository.SearchRepository;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Singleton
@@ -31,6 +32,23 @@ public class CounterService {
             response.addFats(fats);
             response.addCarbohydrates(carbo);
         }
+
+        return response;
+    }
+
+    public CountingResponseDto cookedFoodCount(BigDecimal weightAfterCooking, List<CountingRequestDto> requestInfoList) {
+        var summaryData = count(requestInfoList);
+        var response = new CountingResponseDto();
+
+        double calories = summaryData.getCalories().doubleValue() * 100 / weightAfterCooking.doubleValue();
+        double proteins = summaryData.getProteins().doubleValue() * 100 / weightAfterCooking.doubleValue();
+        double fats = summaryData.getFats().doubleValue() * 100 / weightAfterCooking.doubleValue();
+        double carbo = summaryData.getCarbohydrates().doubleValue() * 100 / weightAfterCooking.doubleValue();
+
+        response.addCalories(calories);
+        response.addProteins(proteins);
+        response.addFats(fats);
+        response.addCarbohydrates(carbo);
 
         return response;
     }
